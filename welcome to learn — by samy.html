@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<!-- saved from url=(0045)file:///Users/samy/Downloads/vocab-learn.html -->
+<html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>welcome to learn — by samy</title>
+<link href="./welcome to learn — by samy_files/css2" rel="stylesheet">
+<style>
+  :root {
+    --black: #111;
+    --dark-card: #2d3035;
+    --white: #fff;
+    --green: #4cd964;
+    --red: #e03131;
+    --pill-bg: #f0f0f0;
+    --text-main: #111;
+    --font: 'Figtree', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--font);
+    background: #fff;
+    color: var(--black);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  /* ─── PAGES ─── */
+  .page { display: none; width: 100%; max-width: 440px; }
+  .page.active { display: flex; flex-direction: column; align-items: center; }
+
+  /* ─── HOME ─── */
+  #home {
+    text-align: center;
+    gap: 32px;
+  }
+  .home-title {
+    font-size: clamp(2rem, 8vw, 3rem);
+    font-weight: 900;
+    line-height: 1.1;
+  }
+  .home-subtitle {
+    font-size: 1.4rem;
+    font-weight: 400;
+    margin-top: 4px;
+  }
+  .home-card {
+    background: var(--dark-card);
+    border-radius: 32px;
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    max-width: 320px;
+  }
+  .home-flags {
+    display: flex;
+    justify-content: space-around;
+    font-size: 3rem;
+    width: 100%;
+    max-width: 320px;
+  }
+
+  /* ─── PILL BUTTON ─── */
+  .pill {
+    background: var(--white);
+    border: none;
+    border-radius: 100px;
+    font-family: var(--font);
+    font-weight: 700;
+    font-size: 1.25rem;
+    padding: 18px 32px;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    transition: transform .12s, background .15s;
+    letter-spacing: -0.01em;
+  }
+  .pill:active { transform: scale(0.97); }
+  .pill.dark {
+    background: var(--black);
+    color: #fff;
+    font-size: 1.4rem;
+  }
+  .pill.outline {
+    background: transparent;
+    border: 2.5px solid var(--black);
+  }
+  .pill.green { background: var(--green); color: #fff; }
+  .pill.red { background: var(--red); color: #fff; }
+  .pill.sm {
+    font-size: 1rem;
+    padding: 14px 24px;
+  }
+
+  /* ─── TOP BAR ─── */
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 24px;
+  }
+  .home-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.8rem;
+    line-height: 1;
+    transition: transform .12s;
+  }
+  .home-btn:active { transform: scale(0.9); }
+  .mode-badge {
+    background: var(--black);
+    color: #fff;
+    border-radius: 100px;
+    font-weight: 900;
+    font-size: 1.2rem;
+    padding: 12px 28px;
+  }
+
+  /* ─── QUIZ CARD ─── */
+  .quiz-card {
+    background: var(--dark-card);
+    border-radius: 32px;
+    padding: 32px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    width: 100%;
+    box-shadow: 4px 6px 0px #aaa;
+  }
+  .fr-word {
+    color: #fff;
+    font-size: clamp(1.6rem, 6vw, 2.2rem);
+    font-weight: 900;
+    text-align: center;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+  .answer-input {
+    background: var(--pill-bg);
+    border: none;
+    border-radius: 100px;
+    font-family: var(--font);
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 16px 24px;
+    text-align: center;
+    outline: none;
+    transition: background .2s;
+    width: 100%;
+  }
+  .answer-input.correct { background: var(--green); color: #fff; }
+  .answer-input.wrong { background: var(--red); color: #fff; }
+  .correct-answer-pill {
+    background: var(--green);
+    border-radius: 100px;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 14px 24px;
+    text-align: center;
+  }
+
+  /* ─── BOTTOM ─── */
+  .bottom-bar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    margin-top: 24px;
+  }
+  .timer-display {
+    font-size: 2.4rem;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+  }
+  .counter-pill {
+    background: transparent;
+    border: 2.5px solid var(--black);
+    border-radius: 100px;
+    font-weight: 900;
+    font-size: 1.5rem;
+    padding: 16px 48px;
+  }
+
+  /* ─── STREAK ─── */
+  .streak-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1rem;
+    font-weight: 700;
+  }
+  .streak-badge {
+    background: #ffb800;
+    color: #fff;
+    border-radius: 100px;
+    padding: 4px 14px;
+    font-size: 0.95rem;
+    font-weight: 900;
+  }
+
+  /* ─── WORD TIMER BAR ─── */
+  .word-timer-wrap {
+    width: 100%;
+    background: #444;
+    border-radius: 100px;
+    height: 6px;
+    overflow: hidden;
+  }
+  .word-timer-bar {
+    height: 100%;
+    background: #fff;
+    border-radius: 100px;
+    transition: width .1s linear;
+  }
+
+  /* ─── RESULTS ─── */
+  #results { gap: 24px; text-align: center; }
+  .results-title {
+    font-size: 2rem;
+    font-weight: 900;
+    line-height: 1.2;
+  }
+  .score-box {
+    border: 3px solid var(--black);
+    border-radius: 100px;
+    padding: 22px 56px;
+    font-weight: 900;
+    font-size: 2rem;
+  }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    width: 100%;
+  }
+  .stat-cell {
+    background: var(--dark-card);
+    border-radius: 20px;
+    padding: 16px;
+    color: #fff;
+    text-align: center;
+  }
+  .stat-cell .num { font-size: 1.8rem; font-weight: 900; }
+  .stat-cell .lbl { font-size: 0.78rem; font-weight: 600; opacity: .7; margin-top: 2px; }
+  .missed-list {
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .missed-item {
+    background: #f8f8f8;
+    border-radius: 14px;
+    padding: 10px 18px;
+    font-size: 0.9rem;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+  }
+  .missed-item .fr { font-weight: 700; }
+  .missed-item .en { color: #555; }
+
+  /* ─── MODE SELECT ─── */
+  #mode-select { gap: 20px; }
+  .mode-card {
+    background: var(--dark-card);
+    border-radius: 28px;
+    padding: 28px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .mode-card h2 { color: #fff; font-size: 1.5rem; font-weight: 900; }
+  .mode-card p { color: #aaa; font-size: 0.9rem; }
+
+  /* ─── SETTINGS ROW ─── */
+  .settings-row {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+  }
+  .settings-row .pill { font-size: 0.95rem; padding: 14px; }
+  .settings-row .pill.selected { background: var(--black); color: #fff; }
+
+  /* ─── PAUSED OVERLAY ─── */
+  .paused-msg {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: #aaa;
+    padding: 20px 0;
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes pop { 0%{transform:scale(1)} 50%{transform:scale(1.08)} 100%{transform:scale(1)} }
+  .pop-anim { animation: pop .25s ease; }
+
+  @keyframes shake {
+    0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-6px)} 40%,80%{transform:translateX(6px)}
+  }
+  .shake-anim { animation: shake .35s ease; }
+
+  @keyframes fadeIn { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+  .page.active { animation: fadeIn .22s ease; }
+
+  /* scrollbar */
+  .missed-list::-webkit-scrollbar { width: 4px; }
+  .missed-list::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     PAGE 1 — HOME
+══════════════════════════════════════════ -->
+<div id="home" class="page active">
+  <div>
+    <div class="home-title">You are here to learn</div>
+    <div class="home-subtitle">by samy</div>
+  </div>
+  <div class="home-card">
+    <button class="pill" onclick="showPage(&#39;mode-select&#39;)">📖 étudier</button>
+    <button class="pill" onclick="startSession(&#39;intero&#39;)">⚡ intero</button>
+  </div>
+  <div class="home-flags">
+    <span>🇬🇧</span>
+    <span>📝</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     PAGE 2 — MODE SELECT
+══════════════════════════════════════════ -->
+<div id="mode-select" class="page">
+  <div class="topbar">
+    <button class="home-btn" onclick="showPage(&#39;home&#39;)">🏠</button>
+    <div class="mode-badge">étudier</div>
+    <div style="width:40px"></div>
+  </div>
+
+  <div class="mode-card">
+    <h2>⏱️ Durée</h2>
+    <div class="settings-row" id="dur-select">
+      <button class="pill" onclick="selectDur(this,5)">5 min</button>
+      <button class="pill selected" onclick="selectDur(this,10)">10 min</button>
+      <button class="pill" onclick="selectDur(this,0)">∞</button>
+    </div>
+  </div>
+
+  <div class="mode-card">
+    <h2>⚡ Vitesse</h2>
+    <div class="settings-row" id="spd-select">
+      <button class="pill selected" onclick="selectSpd(this,45)">Normal · 45s</button>
+      <button class="pill" onclick="selectSpd(this,20)">Rapide · 20s</button>
+    </div>
+  </div>
+
+  <div class="mode-card">
+    <h2>🔄 Direction</h2>
+    <div class="settings-row" id="dir-select">
+      <button class="pill selected" onclick="selectDir(this,&#39;fr-en&#39;)">FR → EN</button>
+      <button class="pill" onclick="selectDir(this,&#39;en-fr&#39;)">EN → FR</button>
+    </div>
+  </div>
+
+  <button class="pill dark" style="margin-top:8px" onclick="startSession(&#39;etudier&#39;)">Commencer →</button>
+
+  <div id="missed-count-info" style="font-size:.9rem;color:#888;margin-top:4px">📌 1 mots ratés mémorisés</div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     PAGE 3 — QUIZ (étudier + intero shared)
+══════════════════════════════════════════ -->
+<div id="quiz" class="page">
+  <div class="topbar">
+    <button class="home-btn" onclick="confirmHome()">🏠</button>
+    <div class="mode-badge" id="quiz-mode-badge">étudier</div>
+    <div style="width:40px"></div>
+  </div>
+
+  <div class="quiz-card" id="quiz-card">
+    <div class="word-timer-wrap"><div class="word-timer-bar" id="word-bar" style="width: 95.5556%;"></div></div>
+    <div class="fr-word" id="fr-word">répéter</div>
+    <input class="answer-input" id="ans-input" type="text" placeholder="ta réponse en anglais…" autocomplete="off" autocorrect="off" spellcheck="false">
+    <div id="correct-reveal" style="display: none;">
+      <div class="correct-answer-pill" id="correct-pill">✓ a suitcase</div>
+    </div>
+    <button class="pill" id="validate-btn" onclick="validateAnswer()">validé ✓</button>
+  </div>
+
+  <div class="bottom-bar">
+    <div class="streak-row">
+      <span id="streak-display">🔥 0</span>
+      <div class="streak-badge" id="score-display">0 pts</div>
+    </div>
+    <div class="timer-display" id="session-timer">9:28</div>
+    <button class="pill outline" id="pause-btn" onclick="togglePause()">play ▶</button>
+    <div class="counter-pill" id="counter-pill">3/15</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     PAGE 4 — RESULTS
+══════════════════════════════════════════ -->
+<div id="results" class="page">
+  <div class="topbar">
+    <button class="home-btn" onclick="showPage(&#39;home&#39;)">🏠</button>
+    <div class="mode-badge" id="res-mode-badge">résultats</div>
+    <div style="width:40px"></div>
+  </div>
+
+  <div class="results-title">Fini !<br>ta note est</div>
+  <div class="score-box" id="final-score">—</div>
+
+  <div class="stats-grid">
+    <div class="stat-cell"><div class="num" id="r-seen">0</div><div class="lbl">mots vus</div></div>
+    <div class="stat-cell"><div class="num" id="r-correct">0</div><div class="lbl">✅ corrects</div></div>
+    <div class="stat-cell"><div class="num" id="r-wrong">0</div><div class="lbl">❌ erreurs</div></div>
+    <div class="stat-cell"><div class="num" id="r-streak">0</div><div class="lbl">🔥 meilleur streak</div></div>
+  </div>
+
+  <div style="font-weight:700;align-self:flex-start;margin-top:4px">Mots ratés :</div>
+  <div class="missed-list" id="missed-list"></div>
+
+  <button class="pill dark" onclick="reviewErrors()" id="review-btn">🔁 Réviser mes erreurs (2 min)</button>
+  <button class="pill outline" onclick="showPage(&#39;home&#39;)">Retour à l'accueil</button>
+</div>
+
+<script>
+/* ═══════════════════════════════════════
+   VOCABULARY DATA
+═══════════════════════════════════════ */
+const RAW = `la grand-mère : the grandmother
+l'oncle : the uncle
+la tante : the aunt
+le cousin, la cousine : the cousin
+le beau-frère (par alliance) : the brother-in-law
+la belle-soeur (par alliance) : the sister-in-law
+le demi-frère : the half-brother
+la demi-soeur : the half-sister
+le beau-père (par alliance) : the father-in-law
+la belle-mère (par alliance) : the mother-in-law
+la belle-fille : the daughter-in-law
+le beau-fils : the son-in-law
+le beau-père (remariage) : the stepfather
+la belle-mère (remariage) : the stepmother
+un chat : a cat
+un chien : a dog
+un cochon d'Inde / un cobaye : a guinea pig
+un hamster : a hamster
+un poisson rouge : a goldfish
+un lapin : a rabbit
+un cheval : a horse
+un lézard : a lizard
+un serpent : a snake
+une tortue (de terre) : a tortoise
+une tortue (de mer) : a turtle
+salut ! / bonjour ! : hi ! / hello !
+bonjour ! (le matin) : good morning !
+bonjour ! (l'après-midi) : good afternoon !
+bonjour ! (le soir) : good evening !
+au revoir ! : goodbye !
+à bientôt ! : see you soon !
+à plus tard ! : see you later !
+merci ! : thanks ! / thank you !
+désolé(e) ! : sorry !
+enchanté(e) ! : nice to meet you !
+s'il vous plaît : please
+répéter : to repeat
+comprendre : to understand
+parler plus fort : to speak louder
+parler plus lentement : to speak slower
+épeler : to spell
+d'où viens-tu ? : where are you from ?
+je suis de... : I am from...
+avoir : to have
+être : to be
+peau pâle : pale skin
+peau mate : dark skin
+athlétique : athletic
+bien s'entendre avec : to get along well with
+rompre avec : to break up with
+rigolo / marrant : funny
+attentif / prévenant : attentive
+ennuyeux / ennuyeuse : boring
+mignon / mignonne : cute
+amical / sympa / gentil : friendly
+avoir bon caractère : to be good-tempered
+avoir mauvais caractère : to be bad-tempered
+travailleur / travailleuse : hard-working
+honnête : honest
+humble / modeste : humble
+désordonné(e) : messy
+nerveux / nerveuse : nervous
+obéissant(e) : obedient
+optimiste : optimistic
+pessimiste : pessimistic
+extraverti(e) : outgoing / extrovert
+patient(e) : patient
+poli(e) : polite
+populaire : popular
+célèbre : famous
+impoli / grossier : rude
+triste : sad
+joyeux / joyeuse : happy
+fort(e) : strong
+faible : weak
+démodé(e) : old-fashioned
+un verre de : a glass of
+un morceau de : a piece of
+une bouteille de : a bottle of
+une barre de : a bar of
+un paquet de : a packet of
+une tranche de : a slice of
+un pot de : a pot of
+une cannette / une conserve de : a can of / a tin of
+un bol de : a bowl of
+un bocal de : a jar of
+un carton de : a carton of
+un sac de : a bag of
+lourd(e) : heavy
+léger / légère : light
+une douzaine : a dozen
+une réduction : a discount
+large : wide
+étroit(e) : narrow
+bon marché / pas cher : cheap
+cher / chère : expensive
+une affaire : a deal
+faire une réduction : to give a discount
+un panier : a basket
+un chariot / un caddie : a trolley
+la caisse : checkout / till
+payer en liquide : to pay cash
+payer par carte de crédit : to pay by credit card
+la monnaie : the change
+les heures d'ouverture : opening times
+carré(e) : square
+rectangulaire : rectangular
+rond(e) : round
+ovale : oval
+triangulaire : triangular
+boulangerie : bakery
+bière : beer
+vin : wine
+boissons alcoolisées : spirits
+les conserves : canned / tinned food
+le rayon frais : chilled / fresh food
+les boissons : drinks
+les fruits de mer : seafood
+les surgelés : frozen food
+la volaille : poultry
+les produits d'entretien : cleaning products
+les vêtements : clothing
+papeterie : stationery
+argenté(e) : silver
+doré(e) : golden
+rejoindre : to join
+être gratuit / être libre : to be free
+un surnom : a nickname
+un arbre généalogique : a family tree
+une carte d'identité : an ID card
+un pays : a country
+un signe du zodiaque : a star sign
+un animal domestique : a pet
+pendant la semaine : during the week
+le week-end : at the weekend
+avant : before
+après : after
+souvent : often
+rarement : rarely
+jamais : never
+parfois : sometimes
+toujours : always
+une fois : once
+deux fois : twice
+trois fois : three times
+parler : to speak
+courant : fluent
+espagnol : Spanish
+allemand : German
+chinois : Chinese
+arabe : Arabic
+de base : basic
+élémentaire : elementary
+avancé : advanced
+vers le haut : up
+vers le bas : down
+le long de : along
+autour : around
+à travers : through
+de l'autre côté : across
+hors de : out of
+une heure de fourche : a free period
+un réfectoire : a canteen
+une école secondaire : a secondary school / a high school
+une heure de retenue : a detention
+tricher : to cheat
+emprunter : to borrow
+prêter : to lend
+faire une erreur : to make a mistake
+écrire : to write down
+génial : awesome
+être d'accord avec : to agree with
+ne pas être d'accord : to disagree with
+un site web : a website
+appartenir : to belong to
+devenir : to become
+suivre : to follow
+se souvenir : to remember
+partager : to share
+une corvée : a chore
+tondre la pelouse : to mow the lawn
+faire attention à : to pay attention to
+une ville : a town
+une capitale : a capital city
+un village : a village
+moderne : modern
+traditionnel : traditional
+énorme : huge
+minuscule : tiny
+extraordinaire : amazing
+les faubourgs : the suburbs
+la vie nocturne : the nightlife
+un prix d'entrée : an admission price
+bruyant : noisy
+calme : quiet
+sale : dirty
+propre : clean
+pollué : polluted
+peuplé : crowded
+stressant : stressful
+paisible : peaceful
+un champ : a field
+une usine : a factory
+un bois : a wood
+une forêt : a forest
+un gratte-ciel : a skyscraper
+un tribunal : a law court
+un lieu de rendez-vous : a meeting place
+un sentier : a footpath
+une carte : a map
+un tiroir : a drawer
+un mur : a wall
+un lit double : a double bed
+un lit simple : a single bed
+un lit superposé : a bunk bed
+voyager : to travel
+atterrir : to land
+décoller : to take off
+réserver : to book
+faire du tourisme : to go sightseeing
+découvrir : to discover
+prendre l'avion : to take the plane
+une compagnie aérienne : an airline
+vérifier : to check
+un vol : a flight
+une chambre d'hôtel : a hotel room
+un appareil photo : a camera
+un chargeur : a charger
+des tongs : flip-flops
+une monnaie étrangère : a foreign currency
+une valise : a suitcase
+aimable / agréable : nice
+sociable / ouvert : outgoing
+accueillant : welcoming
+charmant : charming
+froid / distant : cold
+jusqu'à : till / until
+il y a deux jours : two days ago
+hier soir : yesterday evening
+avant-hier : the day before yesterday
+rater : to miss
+un chauffeur : a driver
+le tarif : the fare
+monter / descendre : to get on / to get off
+un quai : a platform
+un arrêt de bus : a bus stop
+courir : to run
+se dépêcher : to hurry
+arriver en retard : to arrive late
+voler : to fly
+un trajet : a journey
+se plaindre : to complain
+un billet simple : a one-way ticket
+un billet aller-retour : a return ticket
+les montagnes : the mountains
+la plage : the beach
+à la côte : at the coast
+la mer : the sea
+aller faire du camping : to go camping
+aller faire du ski : to go skiing
+la rivière : the river
+une croisière : a cruise
+un bateau : a boat
+livre : book
+crayon : pencil
+sac : bag
+stylo : pen
+colle : glue
+porte : door
+papier : paper
+bureau : desk
+règle : ruler
+gomme : eraser
+peinture : paint
+marqueur : marker
+crayon de couleur : crayon
+ciseaux : scissors
+globe : globe
+fenêtre : window
+agrafeuse : stapler
+cahier : notebook
+correcteur : corrector
+calculatrice : calculator
+tableau noir : blackboard
+tableau blanc : whiteboard
+poubelle : wastebasket
+compas : compass
+calendrier : calendar
+punaise : push pin
+trousse : pencil case
+taille-crayon : pencil sharpener
+trombone : paper clip
+poste : post office
+pub : pub
+école : school
+parc : park
+supermarché : supermarket
+musée : museum
+librairie : bookshop
+hôtel : hotel
+cinéma : cinema
+poste de police : police station
+banque : bank
+restaurant : restaurant
+théâtre : theatre
+hôpital : hospital
+pharmacie : pharmacy
+gare : station
+centre commercial : mall
+hôtel de ville : city hall
+église : church
+station-service : gas station
+fleuriste : flower shop
+aller à l'école : go to school
+marcher : walk
+se mettre en colère : get angry
+faire la vaisselle : wash the dishes
+écouter de la musique : listen to music
+chanter sous la douche : sing in the shower
+prendre un bain : have a bath
+se brosser les dents : brush your teeth
+étudier l'anglais : study English
+utiliser internet : use the internet
+faire du shopping : go shopping
+manger des légumes : eat vegetables
+cuisiner : cook
+jouer au tennis : play tennis
+aller travailler : go to work
+voir ses amis : meet your friends
+aller au cinéma : go to the cinema
+ranger/nettoyer sa chambre : clean your bedroom
+envoyer des messages : send messages / text
+jouer aux jeux vidéo : play video games
+avoir des problèmes : have problems
+appeler un ami : call / phone a friend
+manger une pizza : eat pizza
+jouer au foot : play football
+aller au parc : go to the park
+regarder la télé : watch TV
+danser : dance
+se laver les cheveux : wash your hair
+faire ses devoirs : do your homework
+lire le journal : read the newspaper
+boire de l'eau : drink water
+aller nager : go swimming
+dormir en classe : sleep in class
+lire des livres : read books
+zéro : nought
+un : one
+deux : two
+trois : three
+quatre : four
+cinq : five
+six : six
+sept : seven
+huit : eight
+neuf : nine
+dix : ten
+onze : eleven
+douze : twelve
+treize : thirteen
+quatorze : fourteen
+quinze : fifteen
+seize : sixteen
+dix-sept : seventeen
+dix-huit : eighteen
+dix-neuf : nineteen
+vingt : twenty
+trente : thirty
+quarante : forty
+cinquante : fifty
+soixante : sixty
+septante : seventy
+quatre-vingts : eighty
+nonante : ninety
+cent : one hundred`;
+
+/* ── Parse vocab ── */
+const VOCAB = [];
+RAW.split('\n').forEach(line => {
+  line = line.trim();
+  if (!line || line.startsWith('👨') || line.startsWith('🐾') ||
+      line.startsWith('👋') || line.startsWith('❓') || line.startsWith('👤') ||
+      line.startsWith('🛒') || line.startsWith('📐') || line.startsWith('🍎') ||
+      line.startsWith('🔢') || line.startsWith('⏱') || line.startsWith('🗣') ||
+      line.startsWith('📍') || line.startsWith('🏫') || line.startsWith('📚') ||
+      line.startsWith('🧹') || line.startsWith('🏙') || line.startsWith('🌿') ||
+      line.startsWith('🛏') || line.startsWith('📇') || line.startsWith('🧠') ||
+      line.startsWith('🛍') || line.startsWith('🏪') || line.startsWith('✈') ||
+      line.startsWith('🧳') || line.startsWith('🚍') || line.startsWith('🌍') ||
+      line.startsWith('⸻') || line.startsWith('—') || line.startsWith('#')) return;
+
+  const idx = line.indexOf(' : ');
+  if (idx === -1) return;
+  const fr = line.substring(0, idx).trim();
+  const en = line.substring(idx + 3).trim();
+  if (fr && en) VOCAB.push({ fr, en });
+});
+
+/* ── Accepted answers from EN string ── */
+function getAccepted(enStr) {
+  // Split by / and take all variants
+  return enStr.split('/').map(s =>
+    s.trim().toLowerCase()
+      .replace(/^(the|a|an)\s+/,'')
+      .replace(/[!?.,]/g,'')
+      .trim()
+  );
+}
+
+function normalize(s) {
+  return s.toLowerCase().replace(/[!?.,]/g,'').replace(/^(the|a|an)\s+/,'').trim();
+}
+
+function isCorrect(userAns, enStr) {
+  const user = normalize(userAns);
+  if (!user) return false;
+  const accepted = getAccepted(enStr);
+  // exact match
+  if (accepted.some(a => a === user)) return true;
+  // fuzzy: allow 1 char difference for words > 4 chars
+  return accepted.some(a => {
+    if (a.length > 4 && Math.abs(a.length - user.length) <= 1) {
+      return levenshtein(a, user) <= 1;
+    }
+    return a === user;
+  });
+}
+
+function levenshtein(a, b) {
+  const m = a.length, n = b.length;
+  const dp = Array.from({length:m+1}, (_,i) => Array.from({length:n+1}, (_,j) => i===0?j:j===0?i:0));
+  for (let i=1;i<=m;i++) for (let j=1;j<=n;j++)
+    dp[i][j] = a[i-1]===b[j-1] ? dp[i-1][j-1] : 1+Math.min(dp[i-1][j],dp[i][j-1],dp[i-1][j-1]);
+  return dp[m][n];
+}
+
+/* ═══════════════════════════════════════
+   SESSION STATE
+═══════════════════════════════════════ */
+let sessionDur = 5;    // minutes (0 = infinite)
+let wordTime   = 45;   // seconds per word
+let direction  = 'fr-en';
+let mode       = 'etudier';
+
+// word mastery: id -> { errorCount, correctCount, nextAppear }
+let mastery = {};
+try { mastery = JSON.parse(localStorage.getItem('vocab_mastery') || '{}'); } catch(e){}
+
+let queue = [];           // current session queue (indices into VOCAB)
+let qPos  = 0;            // position in queue
+let wordErrors = {};      // this word's error count in session: id->count
+let sessionCorrect = 0;
+let sessionWrong   = 0;
+let sessionSeen    = new Set();
+let sessionMissed  = {};  // id -> {fr,en}
+let streak = 0;
+let bestStreak = 0;
+let score = 0;
+
+let sessionTimer = null;
+let wordTimerInt = null;
+let sessionSecondsLeft = 300;
+let wordSecondsLeft = 45;
+let paused = false;
+let answering = false;    // waiting for next word after reveal
+
+/* ─── Settings selectors ─── */
+function selectDur(btn, val) {
+  document.querySelectorAll('#dur-select .pill').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+  sessionDur = val;
+}
+function selectSpd(btn, val) {
+  document.querySelectorAll('#spd-select .pill').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+  wordTime = val;
+}
+function selectDir(btn, val) {
+  document.querySelectorAll('#dir-select .pill').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+  direction = val;
+}
+
+/* ─── Page nav ─── */
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if (id === 'mode-select') {
+    const missed = Object.keys(mastery).filter(k => (mastery[k]?.errorCount||0) > 0);
+    document.getElementById('missed-count-info').textContent =
+      missed.length > 0 ? `📌 ${missed.length} mots ratés mémorisés` : '';
+  }
+}
+
+/* ─── Build queue ─── */
+function buildQueue(onlyMissed = false, duration = sessionDur) {
+  let pool = VOCAB.map((_,i) => i);
+
+  if (onlyMissed) {
+    pool = pool.filter(i => (mastery[i]?.errorCount||0) > 0);
+    if (pool.length === 0) pool = VOCAB.map((_,i) => i);
+  }
+
+  // Weighted shuffle: mastered words less likely, error words more likely
+  const weighted = [];
+  pool.forEach(i => {
+    const m = mastery[i] || {};
+    const w = Math.max(1, 4 - (m.correctStreak||0) + (m.errorCount||0)*2);
+    for (let x=0;x<w;x++) weighted.push(i);
+  });
+
+  // Fisher-Yates shuffle
+  for (let i=weighted.length-1;i>0;i--) {
+    const j=Math.floor(Math.random()*(i+1));
+    [weighted[i],weighted[j]]=[weighted[j],weighted[i]];
+  }
+
+  // Limit to ~estimated words possible in duration
+  const seconds = duration > 0 ? duration*60 : 99999;
+  const maxWords = Math.min(weighted.length, Math.ceil(seconds / (wordTime+2)));
+
+  // Deduplicate while preserving order
+  const seen = new Set(), out = [];
+  for (const i of weighted) {
+    if (!seen.has(i)) { seen.add(i); out.push(i); }
+    if (out.length >= maxWords) break;
+  }
+  return out;
+}
+
+/* ─── Start session ─── */
+function startSession(m, onlyMissed = false) {
+  mode = m;
+  const dur = onlyMissed ? 2 : sessionDur;
+
+  // Reset session state
+  queue = buildQueue(onlyMissed, dur);
+  qPos  = 0;
+  wordErrors = {};
+  sessionCorrect = 0;
+  sessionWrong   = 0;
+  sessionSeen    = new Set();
+  sessionMissed  = {};
+  streak = 0;
+  bestStreak = 0;
+  score  = 0;
+  paused = false;
+  answering = false;
+
+  sessionSecondsLeft = dur > 0 ? dur*60 : 999999;
+
+  document.getElementById('quiz-mode-badge').textContent = m === 'intero' ? 'intero' : 'étudier';
+  showPage('quiz');
+  updateScore();
+
+  clearInterval(sessionTimer);
+  if (dur > 0) {
+    sessionTimer = setInterval(() => {
+      if (!paused) {
+        sessionSecondsLeft--;
+        updateSessionTimer();
+        if (sessionSecondsLeft <= 0) endSession();
+      }
+    }, 1000);
+  } else {
+    document.getElementById('session-timer').textContent = '∞';
+  }
+
+  nextWord();
+}
+
+/* ─── Next word ─── */
+function nextWord() {
+  answering = false;
+  clearInterval(wordTimerInt);
+
+  if (qPos >= queue.length) {
+    endSession();
+    return;
+  }
+
+  const idx = queue[qPos];
+  const word = VOCAB[idx];
+  sessionSeen.add(idx);
+
+  const ansInput = document.getElementById('ans-input');
+  const revealDiv = document.getElementById('correct-reveal');
+  const validateBtn = document.getElementById('validate-btn');
+
+  ansInput.value = '';
+  ansInput.className = 'answer-input';
+  revealDiv.style.display = 'none';
+  validateBtn.textContent = 'validé ✓';
+  validateBtn.onclick = validateAnswer;
+
+  const frEl = document.getElementById('fr-word');
+  if (direction === 'fr-en') {
+    frEl.textContent = word.fr;
+    ansInput.placeholder = 'ta réponse en anglais…';
+  } else {
+    frEl.textContent = word.en;
+    ansInput.placeholder = 'ta réponse en français…';
+  }
+
+  frEl.classList.add('pop-anim');
+  setTimeout(() => frEl.classList.remove('pop-anim'), 300);
+
+  // Counter
+  document.getElementById('counter-pill').textContent =
+    mode === 'intero'
+      ? `${sessionSeen.size}/${VOCAB.length}`
+      : `${qPos+1}/${queue.length}`;
+
+  // Word timer
+  wordSecondsLeft = wordTime;
+  updateWordBar();
+  wordTimerInt = setInterval(() => {
+    if (!paused) {
+      wordSecondsLeft--;
+      updateWordBar();
+      if (wordSecondsLeft <= 0) {
+        clearInterval(wordTimerInt);
+        autoFail();
+      }
+    }
+  }, 1000);
+
+  ansInput.focus();
+}
+
+/* ─── Word timer bar ─── */
+function updateWordBar() {
+  const pct = (wordSecondsLeft / wordTime) * 100;
+  document.getElementById('word-bar').style.width = pct + '%';
+}
+
+/* ─── Validate answer ─── */
+function validateAnswer() {
+  if (answering) { nextQuestion(); return; }
+  clearInterval(wordTimerInt);
+
+  const idx = queue[qPos];
+  const word = VOCAB[idx];
+  const userVal = document.getElementById('ans-input').value.trim();
+  const correct = direction === 'fr-en'
+    ? isCorrect(userVal, word.en)
+    : isCorrect(userVal, word.fr);
+
+  const ansInput  = document.getElementById('ans-input');
+  const revealDiv = document.getElementById('correct-reveal');
+  const validateBtn = document.getElementById('validate-btn');
+
+  if (correct) {
+    ansInput.classList.add('correct');
+    revealDiv.style.display = 'none';
+
+    sessionCorrect++;
+    streak++;
+    if (streak > bestStreak) bestStreak = streak;
+    score++;
+
+    const m = mastery[idx] || {errorCount:0, correctStreak:0};
+    m.correctStreak = (m.correctStreak||0)+1;
+    if (m.correctStreak >= 3) m.errorCount = Math.max(0,(m.errorCount||0)-1);
+    mastery[idx] = m;
+
+    // Re-queue for spaced repetition (every 10 words)
+    if (m.correctStreak < 3) queue.splice(qPos+10, 0, idx);
+
+  } else {
+    ansInput.classList.add('wrong');
+
+    const correctAns = direction === 'fr-en' ? word.en : word.fr;
+    document.getElementById('correct-pill').textContent = '✓ ' + correctAns;
+    revealDiv.style.display = 'block';
+
+    sessionWrong++;
+    streak = 0;
+
+    const errs = (wordErrors[idx] || 0) + 1;
+    wordErrors[idx] = errs;
+
+    const m = mastery[idx] || {errorCount:0, correctStreak:0};
+    m.errorCount = (m.errorCount||0)+1;
+    m.correctStreak = 0;
+    mastery[idx] = m;
+
+    sessionMissed[idx] = {fr:word.fr, en:word.en};
+
+    // Re-insert based on error count
+    const reinsert = errs === 1 ? 5 : errs === 2 ? 3 : 2;
+    queue.splice(qPos+reinsert, 0, idx);
+
+    ansInput.classList.add('shake-anim');
+    setTimeout(() => ansInput.classList.remove('shake-anim'), 400);
+  }
+
+  saveMastery();
+  updateScore();
+
+  answering = true;
+  validateBtn.textContent = 'suivant →';
+  validateBtn.onclick = nextQuestion;
+
+  // If mode intero: auto-advance after 1.5s
+  if (mode === 'intero' && correct) {
+    setTimeout(nextQuestion, 1200);
+  }
+}
+
+function nextQuestion() {
+  qPos++;
+  nextWord();
+}
+
+/* ─── Auto fail (time out) ─── */
+function autoFail() {
+  const idx = queue[qPos];
+  const word = VOCAB[idx];
+  const ansInput = document.getElementById('ans-input');
+  const revealDiv = document.getElementById('correct-reveal');
+  const validateBtn = document.getElementById('validate-btn');
+
+  ansInput.classList.add('wrong');
+  const correctAns = direction === 'fr-en' ? word.en : word.fr;
+  document.getElementById('correct-pill').textContent = '⏰ ' + correctAns;
+  revealDiv.style.display = 'block';
+
+  sessionWrong++;
+  streak = 0;
+
+  const errs = (wordErrors[idx]||0)+1;
+  wordErrors[idx] = errs;
+
+  const m = mastery[idx] || {errorCount:0, correctStreak:0};
+  m.errorCount = (m.errorCount||0)+1;
+  m.correctStreak = 0;
+  mastery[idx] = m;
+  sessionMissed[idx] = {fr:word.fr, en:word.en};
+
+  const reinsert = errs===1?5:errs===2?3:2;
+  queue.splice(qPos+reinsert, 0, idx);
+
+  saveMastery();
+  updateScore();
+
+  answering = true;
+  validateBtn.textContent = 'suivant →';
+  validateBtn.onclick = nextQuestion;
+}
+
+/* ─── Pause/Play ─── */
+function togglePause() {
+  paused = !paused;
+  const btn = document.getElementById('pause-btn');
+  btn.textContent = paused ? 'play ▶' : 'pause';
+  const frEl = document.getElementById('fr-word');
+  if (paused) {
+    frEl.textContent = '⏸ pause';
+  } else {
+    const idx = queue[qPos] !== undefined ? queue[qPos] : null;
+    if (idx !== null) {
+      frEl.textContent = direction === 'fr-en' ? VOCAB[idx].fr : VOCAB[idx].en;
+    }
+  }
+}
+
+/* ─── Timers ─── */
+function updateSessionTimer() {
+  const m = Math.floor(sessionSecondsLeft/60);
+  const s = sessionSecondsLeft%60;
+  document.getElementById('session-timer').textContent =
+    `${m}:${String(s).padStart(2,'0')}`;
+}
+
+function updateScore() {
+  document.getElementById('streak-display').textContent = `🔥 ${streak}`;
+  document.getElementById('score-display').textContent  = `${score} pts`;
+}
+
+/* ─── End session ─── */
+function endSession() {
+  clearInterval(sessionTimer);
+  clearInterval(wordTimerInt);
+
+  const total = sessionCorrect + sessionWrong;
+  const note20 = total > 0 ? Math.round((sessionCorrect/total)*20) : 0;
+
+  document.getElementById('res-mode-badge').textContent = mode;
+  document.getElementById('final-score').textContent = `${note20}/20`;
+  document.getElementById('r-seen').textContent    = sessionSeen.size;
+  document.getElementById('r-correct').textContent = sessionCorrect;
+  document.getElementById('r-wrong').textContent   = sessionWrong;
+  document.getElementById('r-streak').textContent  = bestStreak;
+
+  const ml = document.getElementById('missed-list');
+  ml.innerHTML = '';
+  const missedArr = Object.values(sessionMissed);
+  if (missedArr.length === 0) {
+    ml.innerHTML = '<div style="color:#888;font-size:.9rem">Aucune erreur ! 🎉</div>';
+  } else {
+    missedArr.forEach(w => {
+      const div = document.createElement('div');
+      div.className = 'missed-item';
+      div.innerHTML = `<span class="fr">${w.fr}</span><span class="en">${w.en}</span>`;
+      ml.appendChild(div);
+    });
+  }
+
+  document.getElementById('review-btn').style.display = missedArr.length>0 ? '' : 'none';
+  showPage('results');
+}
+
+/* ─── Review errors ─── */
+function reviewErrors() {
+  mode = 'etudier';
+  const dur = 2;
+  sessionDur = dur;
+  startSession('etudier', true);
+}
+
+/* ─── Confirm home ─── */
+function confirmHome() {
+  if (confirm('Quitter la session en cours ?')) {
+    clearInterval(sessionTimer);
+    clearInterval(wordTimerInt);
+    showPage('home');
+  }
+}
+
+/* ─── Persistence ─── */
+function saveMastery() {
+  try { localStorage.setItem('vocab_mastery', JSON.stringify(mastery)); } catch(e){}
+}
+
+/* ─── Enter key ─── */
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && document.getElementById('quiz').classList.contains('active')) {
+    e.preventDefault();
+    if (answering) nextQuestion();
+    else validateAnswer();
+  }
+});
+
+/* ─── Init ─── */
+updateSessionTimer();
+</script>
+
+
+</body></html>
